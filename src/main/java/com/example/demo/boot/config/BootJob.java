@@ -27,9 +27,15 @@ public class BootJob extends QuartzJobBean {
         System.out.println(recovering);
 
         try {
-            Thread.sleep(10000); //任务执行超时也不用担心重复执行
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.sleep(5000);  //任务执行超时也不用担心重复执行 @DisallowConcurrentExecution
+            //当前的调度器
+            System.out.println(context.getScheduler().getSchedulerInstanceId());
+            //输出任务名字
+            System.out.println("taskname="+context.getJobDetail().getKey().getName());
+            //输出组的名字
+            System.out.println("groupname="+context.getJobDetail().getKey().getGroup());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
