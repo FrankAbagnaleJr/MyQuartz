@@ -27,7 +27,7 @@ public class BootJob extends QuartzJobBean {
         System.out.println(recovering);
 
         try {
-            Thread.sleep(3000); //任务执行超时也不用担心重复执行
+            Thread.sleep(10000); //任务执行超时也不用担心重复执行
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

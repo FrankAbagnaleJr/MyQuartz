@@ -30,7 +30,9 @@ public class TestJob {
                 .usingJobData("trigger_order","625103471")
                 .startNow()
                 //触发器的类型，有简单、日历、cron等，这里用的是简单
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).repeatForever())
+//                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).repeatForever())
+                //cron表达式触发，这里是每5秒执行一次
+                .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))
                 .build();
 
         //创建定时器类

@@ -18,7 +18,6 @@ import java.util.concurrent.Executor;
 public class SchedulerConfig {
     @Autowired
     private DataSource dataSource;
-
     //创建Properties类，就是把配置文件的属性导入进来
     @Bean
     public Properties quartzProperties() throws IOException {
@@ -28,7 +27,6 @@ public class SchedulerConfig {
         propertiesFactoryBean.afterPropertiesSet(); //调用这个方法才会读取配置文件
         return propertiesFactoryBean.getObject();
     }
-
     //创建线程池
     @Bean
     public Executor schedulerThreadPool(){
@@ -39,7 +37,6 @@ public class SchedulerConfig {
         executor.setQueueCapacity(coreNum);
         return executor;
     }
-
     // 把Properties类传进来创建SchedulerFactoryBean
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
@@ -52,7 +49,6 @@ public class SchedulerConfig {
         factoryBean.setStartupDelay(10); //设置延迟10秒执行，不设置是立即执行
         return factoryBean;
     }
-
     //创建调度器
     @Bean
     public Scheduler scheduler() throws IOException {
