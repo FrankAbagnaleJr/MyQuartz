@@ -1,0 +1,44 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: quartz-service
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            # 集群名，区分同一系统的不同实例，若使用集群功能，则每一个实例都要使用相同的名字
+            instanceName: SERVICEX-SCHEDULER-INSTANCE
+            # 若是集群下，每个instanceId必须唯一
+            instanceId: AUTO
+          threadPool:
+            #一般使用这个便可
+            class: org.quartz.simpl.SimpleThreadPool
+            #线程数量，不会动态增加
+            threadCount: 20
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+          jobStore:
+            #选择JDBC的存储方式
+            dataSource: quartzDataSource
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            tablePrefix: QRTZ_
+            useProperties: false
+            isClustered: true
+            clusterCheckinInterval: 15000
+    job-store-type: jdbc
+    # 默认为false， 用于设定是否等待任务执行完毕后容器才会关闭。
+    wait-for-jobs-to-complete-on-shutdown: false
+    # 默认为false， 配置的JOB是否覆盖已经存在的JOB信息
+    overwrite-existing-jobs: false
+    jdbc:
+      initialize-schema: never
+  datasource:
+    quartz:
+      url:
+      username: root
+      password: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
